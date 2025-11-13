@@ -69,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
       this.appendChild(ripple);
       
       setTimeout(() => ripple.remove(), 600);
+      
+      if (this.classList.contains('btn-primary') && this.textContent.includes('Read Full Essay')) {
+        window.location.href = 'https://docs.google.com/document/d/1SIF1FM_AQhb5IvtlKi2hE1pFMqJepFs9krSV8q0q4ZI/edit?tab=t.0';
+      }
     });
   });
 
@@ -97,5 +101,71 @@ document.addEventListener('DOMContentLoaded', function() {
       stat.style.opacity = '1';
       stat.style.transform = 'translateY(0)';
     }, 100);
+  });
+
+  function createSparkles() {
+    const sparkleContainer = document.querySelector('.animated-background');
+    const sparkleCount = 20;
+    
+    for (let i = 0; i < sparkleCount; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      sparkle.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+      sparkleContainer.appendChild(sparkle);
+    }
+  }
+  
+  createSparkles();
+
+  const statValues = document.querySelectorAll('.stat-value');
+  statValues.forEach(statValue => {
+    const finalValue = parseInt(statValue.textContent);
+    let currentValue = 0;
+    const duration = 2000;
+    const increment = finalValue / (duration / 16);
+    
+    const counter = setInterval(() => {
+      currentValue += increment;
+      if (currentValue >= finalValue) {
+        statValue.textContent = finalValue;
+        clearInterval(counter);
+      } else {
+        statValue.textContent = Math.floor(currentValue);
+      }
+    }, 16);
+  });
+
+  const highlightCards = document.querySelectorAll('.highlight-card');
+  highlightCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      const icon = this.querySelector('.highlight-icon');
+      icon.style.animation = 'none';
+      setTimeout(() => {
+        icon.style.animation = '';
+      }, 10);
+    });
+  });
+
+  document.querySelectorAll('.stat-card, .timeline-content, .highlight-card').forEach(card => {
+    card.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+      
+      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
   });
 });
