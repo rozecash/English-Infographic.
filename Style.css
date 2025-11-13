@@ -58,11 +58,12 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, 
-    var(--accent-1) 0%, 
-    var(--accent-2) 25%, 
-    var(--bg-deep) 50%,
-    var(--accent-4) 75%,
-    var(--accent-3) 100%);
+    var(--bg-black) 0%, 
+    var(--accent-1) 20%, 
+    var(--accent-2) 40%, 
+    var(--bg-deep) 65%,
+    var(--accent-2) 85%,
+    var(--bg-black) 100%);
   background-size: 400% 400%;
   animation: bgMove 20s ease-in-out infinite;
   opacity: 0.4;
@@ -81,14 +82,14 @@ body {
 .blob-a {
   left: -5%;
   top: -5%;
-  background: radial-gradient(circle at 40% 40%, rgba(102, 126, 234, 0.5), transparent 60%);
+  background: radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.35), transparent 60%);
   animation: blobFloatA 35s ease-in-out infinite;
 }
 
 .blob-b {
   right: -10%;
   bottom: -10%;
-  background: radial-gradient(circle at 60% 60%, rgba(118, 75, 162, 0.5), transparent 60%);
+  background: radial-gradient(circle at 60% 60%, rgba(118, 75, 162, 0.4), transparent 60%);
   animation: blobFloatB 40s ease-in-out infinite;
 }
 
@@ -107,6 +108,28 @@ body {
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 #bg-shader {
@@ -188,6 +211,16 @@ body {
   text-transform: uppercase;
   color: var(--accent-1);
   margin-bottom: 30px;
+  animation: badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+  }
 }
 
 .essay-title {
@@ -282,6 +315,16 @@ body {
   margin-bottom: 20px;
   filter: grayscale(1) brightness(1.5);
   opacity: 0.8;
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .intro-features {
@@ -441,6 +484,11 @@ body {
     0 10px 40px rgba(102, 126, 234, 0.4),
     inset 0 2px 10px rgba(255,255,255,0.2);
   position: relative;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-number {
+  transform: rotate(360deg) scale(1.1);
 }
 
 .stat-number::after {
@@ -482,6 +530,8 @@ body {
   width: 100%;
   margin: 5rem 0;
   box-shadow: 0 0 20px var(--accent-1);
+  position: relative;
+  overflow: hidden;
 }
 
 .timeline {
@@ -523,6 +573,24 @@ body {
     0 0 50px var(--accent-2),
     inset 0 0 10px rgba(255, 255, 255, 0.3);
   z-index: 2;
+  animation: marker-pulse 2s ease-in-out infinite;
+}
+
+@keyframes marker-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 30px var(--accent-1),
+      0 0 50px var(--accent-2),
+      inset 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 
+      0 0 40px var(--accent-1),
+      0 0 70px var(--accent-2),
+      inset 0 0 15px rgba(255, 255, 255, 0.5);
+  }
 }
 
 .timeline-content {
@@ -716,6 +784,12 @@ body {
   margin-bottom: 20px;
   filter: grayscale(1) brightness(1.5);
   opacity: 0.9;
+  transition: all 0.4s ease;
+}
+
+.highlight-card:hover .highlight-icon {
+  filter: grayscale(0) brightness(1);
+  transform: scale(1.2) rotateY(360deg);
 }
 
 .highlight-title {
@@ -754,6 +828,16 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 0.02em;
+  animation: button-glow 3s ease-in-out infinite;
+}
+
+@keyframes button-glow {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 50px rgba(102, 126, 234, 0.7), 0 0 30px rgba(102, 126, 234, 0.5);
+  }
 }
 
 .btn-primary::before {
